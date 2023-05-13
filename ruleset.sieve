@@ -12,6 +12,7 @@ set "OTHER_FASTMAIL" "INBOX.Other.Fastmail";
 set "OTHER_APPLE" "INBOX.Other.Apple";
 set "OTHER_GOOGLE" "INBOX.Other.Google";
 set "OTHER_AWS" "INBOX.Other.AWS";
+set "OTHER_JIRA" "INBOX.Other.JIRA";
 
 # Github
 if allof(
@@ -128,3 +129,11 @@ if anyof(
   stop;
 }
 
+if anyof(
+  address :matches "From" "*@am.atlassian.com",
+  address :matches "From" "*@*.atlassian.net"
+) {
+  addflag "\\Seen";
+  fileinto "${OTHER_JIRA}";
+  stop;
+}

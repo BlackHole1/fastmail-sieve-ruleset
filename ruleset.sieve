@@ -13,6 +13,7 @@ set "OTHER_APPLE" "INBOX.Other.Apple";
 set "OTHER_GOOGLE" "INBOX.Other.Google";
 set "OTHER_AWS" "INBOX.Other.AWS";
 set "OTHER_JIRA" "INBOX.Other.JIRA";
+set "OTHER_GSOC" "INBOX.Other.GSoC";
 
 # Github
 if allof(
@@ -39,22 +40,6 @@ if allof(
     header :matches "Subject" "[pnpm/*"
   ) {
     fileinto "${GITHUB_PNPM}";
-    stop;
-  }
-
-  if allof(
-    header :matches "To" "BlackHole1/*"
-  ) {
-    fileinto "${GITHUB_BLACKHOLE1}";
-    addflag "$notify";
-    stop;
-  }
-
-  if allof(
-    address :is "From" "notifications@github.com",
-    header :is "X-GitHub-Reason" "subscribed"
-  ) {
-    fileinto "${GITHUB_OTHER_NOTIFICATIONS}";
     stop;
   }
 
@@ -129,11 +114,21 @@ if anyof(
   stop;
 }
 
+# JIRA
 if anyof(
   address :matches "From" "*@am.atlassian.com",
   address :matches "From" "*@*.atlassian.net"
 ) {
   addflag "\\Seen";
   fileinto "${OTHER_JIRA}";
+  stop;
+}
+
+# GSoC
+if anyof(
+  address :matches "From" "summer-of-code@electronjs.org",
+  address :matches "From" "google-summer-of-code-mentors-list@googlegroups.com",
+) {
+  fileinto "${OTHER_GSOC}";
   stop;
 }

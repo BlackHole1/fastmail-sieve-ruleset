@@ -127,7 +127,7 @@ if anyof(
 # GSoC
 if anyof(
   address :matches "From" "summer-of-code@electronjs.org",
-  address :matches "From" "google-summer-of-code-mentors-list@googlegroups.com",
+  address :matches "From" "google-summer-of-code-mentors-list@googlegroups.com"
 ) {
   fileinto "${OTHER_GSOC}";
   stop;

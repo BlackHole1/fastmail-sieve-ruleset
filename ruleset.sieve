@@ -17,6 +17,16 @@ if allof(
   stop;
 }
 
+# npm: oo-cli publish notifications are marked as read and moved to trash
+if allof(
+  address :is "From" "support@npmjs.com",
+  header :matches "Subject" "Successfully published @oomol-lab/oo-cli-*"
+) {
+  addflag "\\Seen";
+  fileinto "${TRASH}";
+  stop;
+}
+
 # Apple
 if anyof(
   address :matches "From" "*@email.apple.com",

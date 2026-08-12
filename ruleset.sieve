@@ -1,4 +1,4 @@
-require ["variables", "fileinto", "imap4flags"];
+require ["variables", "fileinto", "imap4flags", "mailbox"];
 
 set "TRASH" "INBOX.Trash";
 set "AI" "INBOX.AI";
@@ -50,7 +50,7 @@ if anyof(
     addflag "\\Seen";
   }
 
-  fileinto "${APPLE}";
+  fileinto :create "${APPLE}";
   stop;
 }
 
@@ -67,6 +67,6 @@ if anyof(
   address :matches "From" "*@grok.com",
   address :matches "From" "*@*.grok.com"
 ) {
-  fileinto "${AI}";
+  fileinto :create "${AI}";
   stop;
 }

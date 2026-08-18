@@ -54,7 +54,7 @@ if anyof(
   stop;
 }
 
-# AI: OpenAI / Claude (Anthropic) / Grok (xAI)
+# AI: OpenAI / Claude (Anthropic) / Grok (xAI) / Cursor
 if anyof(
   address :matches "From" "*@openai.com",
   address :matches "From" "*@*.openai.com",
@@ -62,10 +62,14 @@ if anyof(
   address :matches "From" "*@*.anthropic.com",
   address :matches "From" "*@claude.ai",
   address :matches "From" "*@*.claude.ai",
+  address :matches "From" "*@claude.com",
+  address :matches "From" "*@*.claude.com",
   address :matches "From" "*@x.ai",
   address :matches "From" "*@*.x.ai",
   address :matches "From" "*@grok.com",
-  address :matches "From" "*@*.grok.com"
+  address :matches "From" "*@*.grok.com",
+  address :matches "From" "*@cursor.com",
+  address :matches "From" "*@*.cursor.com"
 ) {
   fileinto :create "${AI}";
   stop;

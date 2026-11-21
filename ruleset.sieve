@@ -17,10 +17,13 @@ if allof(
   stop;
 }
 
-# npm: oo-cli publish notifications are marked as read and moved to trash
+# npm: oo-cli / open-flow publish notifications are marked as read and moved to trash
 if allof(
   address :is "From" "support@npmjs.com",
-  header :matches "Subject" "Successfully published @oomol-lab/oo-cli-*"
+  anyof(
+    header :matches "Subject" "Successfully published @oomol-lab/oo-cli-*",
+    header :matches "Subject" "Successfully published @oomol-lab/open-flow@*"
+  )
 ) {
   addflag "\\Seen";
   fileinto "${TRASH}";
